@@ -1,8 +1,16 @@
+import subprocess
+import yaml
+
 import os
-from CRUD.util import load_config, prompt_additional_commits
+import subprocess
+import requests
+import yaml
+from CRUD.util import run_command, load_config, prompt_additional_commits
 from CRUD.git import git_add_commit_push
-from CRUD.create import create_repo_and_commit, remove_git_repo, delete_github_repo, check_github_repo_exists
 from termcolor import colored
+
+from template_gen.CRUD.create import create_repo_and_commit
+from template_gen.CRUD.delete import check_github_repo_exists, remove_git_repo
 
 CONFIG_FILE = 'config.yaml'
 
