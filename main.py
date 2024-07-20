@@ -9,8 +9,8 @@ from CRUD.util import run_command, load_config, prompt_additional_commits
 from CRUD.git import git_add_commit_push
 from termcolor import colored
 
-from template_gen.CRUD.create import create_repo_and_commit
-from template_gen.CRUD.delete import check_github_repo_exists, remove_git_repo
+from CRUD.create import create_repo_and_commit
+from CRUD.delete import check_github_repo_exists, remove_git_repo
 
 CONFIG_FILE = 'config.yaml'
 

@@ -9,6 +9,8 @@ from CRUD.util import run_command, load_config
 from CRUD.git import git_add_commit_push
 from termcolor import colored
 
+from CRUD.delete import remove_git_repo
+
 CONFIG_FILE = r'config.yaml'
 config = load_config(config_file=CONFIG_FILE)
 
@@ -33,6 +35,10 @@ def create_repo_and_commit(directory, delete_if_exists=False):
             if delete_if_exists:
                 print(colored(f"Deleting existing directory '{directory}'...", 'yellow'))
                 run_command(f'rm -rf {directory}')
+                directory = input("Enter the local directory of the repository to delete: ").strip()
+                repo_name = os.path.basename(os.path.normpath(directory))
+                remove_remote = input("Delete the remote GitHub repository as well? (y/n): ").strip().lower() == 'y'
+                remove_git_repo(directory, repo_name, remove_remote=remove_remote)
 
         os.makedirs(directory, exist_ok=True)
         os.chdir(directory)
@@ -47,7 +53,7 @@ def create_repo_and_commit(directory, delete_if_exists=False):
 
         run_command('git add README.md')
         run_command('git commit -m "first commit"')
-        run_command('git branch -M main')
+        # run_command('git branch -M main')
         run_command(f'git remote add origin https://github.com/{config["github_user"]}/{os.path.basename(directory)}.git')
         run_command('git push -u origin main')
 
